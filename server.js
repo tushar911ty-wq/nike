@@ -20,9 +20,49 @@ app.get('/api/status', (req, res) => {
     res.json({ status: 'Online', message: 'Nike backend is running!' });
 });
 
+const fs = require('fs');
+const MESSAGE_FILE = path.join(__dirname, 'makemsg.json');
+
+// Initialize the array if json file doesn't exist
+if (!fs.existsSync(MESSAGE_FILE)) {
+    fs.writeFileSync(MESSAGE_FILE, JSON.stringify([]));
+}
+
 // Serve index.html for the root URL
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Handle contact form submission
+app.post('/api/contact', (req, res) => {
+    const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+        return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    const newMessage = {
+        id: Date.now(),
+        name,
+        email,
+        message,
+        date: new Date().toISOString()
+    };
+
+    fs.readFile(MESSAGE_FILE, 'utf8', (err, data) => {
+        let messages = [];
+        if (!err && data) {
+            messages = JSON.parse(data);
+        }
+        messages.push(newMessage);
+
+        fs.writeFile(MESSAGE_FILE, JSON.stringify(messages, null, 2), (err) => {
+            if (err) {
+                return res.status(500).json({ error: 'Failed to save message' });
+            }
+            res.json({ success: true, message: 'Message saved successfully' });
+        });
+    });
 });
 
 // Start the server

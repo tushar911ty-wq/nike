@@ -125,3 +125,55 @@ window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
+
+// Handle Form Submission
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const message = document.getElementById('contactMessage').value;
+        const submitBtn = contactForm.querySelector('button');
+        const formMsg = document.getElementById('formMsg');
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'SENDING...';
+
+        try {
+            const res = await fetch('http://localhost:3000/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, message })
+            });
+
+            let data = {};
+            const text = await res.text();
+            try {
+                if (text) data = JSON.parse(text);
+            } catch (err) {
+                console.error("Invalid JSON from server:", text);
+            }
+
+            if (res.ok && data.success) {
+                formMsg.style.display = 'block';
+                formMsg.innerText = 'Message sent successfully!';
+                formMsg.style.color = '#4CAF50';
+                contactForm.reset();
+            } else {
+                throw new Error(data.error || 'Please make sure you are running the backend server with `node server.js` at localhost:3000.');
+            }
+        } catch (error) {
+            formMsg.style.display = 'block';
+            formMsg.innerText = error.message;
+            formMsg.style.color = '#F44336';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'SEND MESSAGE';
+            setTimeout(() => {
+                formMsg.style.display = 'none';
+            }, 5000);
+        }
+    });
+}
