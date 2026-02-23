@@ -1,0 +1,266 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Scroll Progress */
+.progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: #fff;
+    width: 0%;
+    z-index: 9999;
+}
+
+/* Particle Canvas */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 20px;
+    left: 40px;
+    z-index: 1000;
+    font-size: 20px;
+    letter-spacing: 3px;
+}
+
+/* Sections */
+.section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.section-title {
+    font-size: 40px;
+    margin-bottom: 40px;
+    letter-spacing: 3px;
+}
+
+.tagline {
+    margin-top: 10px;
+    color: #aaa;
+}
+
+/* Hero */
+.hero {
+    position: relative;
+}
+
+.shoe-container {
+    position: relative;
+    perspective: 1000px;
+    margin: 40px 0;
+}
+
+#shoe {
+    width: 400px;
+    transition: opacity 0.5s ease, transform 0.2s ease;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.glow {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 60px;
+    background: radial-gradient(circle, #fff, transparent);
+    filter: blur(40px);
+    opacity: 0.4;
+}
+
+/* Color Switch */
+.color-switch {
+    margin-top: 20px;
+}
+
+.color {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin: 10px;
+    cursor: pointer;
+    border: 2px solid #fff;
+}
+
+.black {
+    background: #111;
+}
+
+.red {
+    background: #c00;
+}
+
+.white {
+    background: #eee;
+}
+
+.custom {
+    background: #555;
+}
+
+/* Features */
+.feature-grid {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.feature {
+    max-width: 250px;
+}
+
+.feature h3 {
+    margin-bottom: 10px;
+}
+
+/* Stats */
+.stats {
+    background: #111;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.stat h2 {
+    font-size: 50px;
+}
+
+/* Gallery */
+.gallery-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gallery-grid img {
+    width: 300px;
+    transition: 0.5s;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.1);
+}
+
+/* Lifestyle */
+.lifestyle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.lifestyle img {
+    width: 450px;
+    max-width: 90%;
+}
+
+/* Testimonial */
+.testimonial {
+    background: #111;
+}
+
+.review {
+    max-width: 500px;
+    margin: 20px auto;
+    font-style: italic;
+}
+
+/* Pricing */
+.pricing {
+    background: linear-gradient(to top, #000, #111);
+}
+
+.buy-btn {
+    margin-top: 20px;
+    padding: 15px 50px;
+    background: #fff;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buy-btn:hover {
+    background: #ccc;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px;
+    background: #000;
+    color: #777;
+}
+
+/* Reveal Animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(80px);
+    transition: 1s;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media(max-width:768px) {
+
+    #shoe {
+        width: 280px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+}
